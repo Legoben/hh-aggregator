@@ -13,7 +13,7 @@ print "restarted"
 
 def checkGroup(id, name):
     client = httpclient.HTTPClient()
-    resp = client.fetch("https://graph.facebook.com/"+id+"/feed?access_token="+token+"&format=json&method=get&pretty=0&suppress_http_code=1").body #Get group posts
+    resp = client.fetch("https://graph.facebook.com/"+id+"/feed?access_token="+token+"&format=json&method=get&suppress_http_code=1").body #Get group posts
     j = json.loads(resp)['data']
     print(name)
 
@@ -28,7 +28,11 @@ def crawlGroups():
     print("here")
     j = []
     for group in groups:
-        j.extend(checkGroup(group['id'], group['name'])) #Add all posts to array
+        try:
+            j.extend(checkGroup(group['id'], group['name'])) #Add all posts to array
+        except Exception:
+            time.sleep(5)
+            crawlGroups()
 
     print("done fetching")
 
@@ -50,6 +54,14 @@ class APIHandler(web.RequestHandler):
     def get(self, *args, **kwargs):
         self.set_header("Content-Type", "application/json")
         j = open("feed.json", "r").read()
+
+        limit = self.get_argument("limit", None)
+        if limit != None:
+            try:
+                lnum = int(limit)
+                j = json.dumps(json.loads(j)[:lnum])
+            except Exception:
+                pass
 
         if self.get_argument("pretty", None) != None:
             pretty = json.dumps(json.loads(j), indent=4, separators=(',', ': '))
