@@ -1,2 +1,6 @@
 token.txt
 feed.json
+
+*.py?
+*.sw?
+venv/
