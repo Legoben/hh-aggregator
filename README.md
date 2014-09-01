@@ -2,10 +2,6 @@ HH-Aggregator
 =========
 
 
-## Required Libraries
-- Tornado
-- Dateutil
-
 ## Installation
 1. Install required libraries
  - ``` pip install tornado```
