@@ -1,0 +1,19 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
+html, body{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#temp-text{
+    text-align: center;
+    width: auto;
+    height: 50px;
+    margin: auto;
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    padding-bottom: 75px;
+    font-family: 'Roboto', Arial, sans-serif;
+}
